@@ -1,34 +1,60 @@
-﻿using Lawyers.DAL.Entities;
+﻿using Data.DAL.Context;
+using Lawyers.DAL.Entities;
 using Lawyers.DAL.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace Lawyers.DAL.Repositories
 {
     public class CasosRepository : ICasosRepository
     {
+        private readonly LawyersContext _context;
+        private readonly ILogger<Casos> _logger;
+        public CasosRepository(LawyersContext context, ILogger<Casos> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
         public bool Exists(Expression<Func<Casos, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _context.Casos.Any(filter);
         }
 
         public IEnumerable<Casos> GetEntities()
         {
-            throw new NotImplementedException();
+            return _context.Casos.ToList();
         }
 
         public Casos GetEntity(int entityid)
         {
-            throw new NotImplementedException();
+            return _context.Casos.Find(entityid);
         }
 
         public void Save(Casos entity)
         {
-            throw new NotImplementedException();
+            _context.Casos.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Update(Casos entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Casos CasoModificar = GetEntity(entity.Id);
+
+                CasoModificar.FechaCaso = entity.FechaCaso;
+                CasoModificar.IdAbogado = entity.IdAbogado;
+                CasoModificar.IdCliente = entity.IdCliente;
+                CasoModificar.IdEstadoCaso = entity.IdEstadoCaso;
+                CasoModificar.IdTipoCaso = entity.IdTipoCaso;
+                CasoModificar.Latitud = entity.Latitud;
+                CasoModificar.Longitud = entity.Longitud;
+                CasoModificar.Descripcion = entity.Descripcion;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+            }
         }
     }
 }

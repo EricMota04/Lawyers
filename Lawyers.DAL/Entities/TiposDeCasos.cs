@@ -6,6 +6,6 @@ namespace Lawyers.DAL.Entities
     public class TiposDeCasos
     {
         public int Id { get; set; }
-        public string TipoDeCaso { get; set; }
+        public string TipoDeCaso { get; set; } = string.Empty;
     }
 }
