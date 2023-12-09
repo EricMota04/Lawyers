@@ -5,6 +5,7 @@ namespace Lawyers.DAL.Entities
     [Table("Casos", Schema ="dbo")]
     public class Casos
     {
+        public int Id { get; set; }
         public DateOnly FechaCaso { get; set; }
         public int? IdAbogado { get; set; }
         public int? IdCliente { get; set; }

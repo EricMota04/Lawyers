@@ -1,24 +1,33 @@
-﻿using Lawyers.DAL.Entities;
+﻿using Data.DAL.Context;
+using Lawyers.DAL.Entities;
 using Lawyers.DAL.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace Lawyers.DAL.Repositories
 {
     public class RolesRepository : IRolesRepository
     {
+        private readonly LawyersContext _context;
+        private readonly ILogger<Roles> _logger;
+        public RolesRepository(LawyersContext context, ILogger<Roles> logger) 
+        {
+            _context = context;
+            _logger = logger;
+        }
         public bool Exists(Expression<Func<Roles, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _context.Roles.Any(filter);
         }
 
         public IEnumerable<Roles> GetEntities()
         {
-            throw new NotImplementedException();
+            return _context.Roles.ToList();
         }
 
         public Roles GetEntity(int entityid)
         {
-            throw new NotImplementedException();
+            return _context.Roles.Find(entityid);
         }
 
         public void Save(Roles entity)

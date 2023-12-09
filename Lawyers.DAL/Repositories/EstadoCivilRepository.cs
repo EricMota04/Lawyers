@@ -1,24 +1,33 @@
-﻿using Lawyers.DAL.Entities;
+﻿using Data.DAL.Context;
+using Lawyers.DAL.Entities;
 using Lawyers.DAL.Interfaces;
+using Microsoft.Extensions.Logging;
 using System.Linq.Expressions;
 
 namespace Lawyers.DAL.Repositories
 {
     public class EstadoCivilRepository : IEstadoCivilRepository
     {
+        private readonly LawyersContext _context;
+        private readonly ILogger<EstadoCivil> _logger;
+        public EstadoCivilRepository(LawyersContext context, ILogger<EstadoCivil> logger)
+        {
+            _context = context;
+            _logger = logger;
+        }
         public bool Exists(Expression<Func<EstadoCivil, bool>> filter)
         {
-            throw new NotImplementedException();
+            return _context.EstadoCivil.Any(filter);
         }
 
         public IEnumerable<EstadoCivil> GetEntities()
         {
-            throw new NotImplementedException();
+            return _context.EstadoCivil.ToList();
         }
 
         public EstadoCivil GetEntity(int entityid)
         {
-            throw new NotImplementedException();
+            return _context.EstadoCivil.Find(entityid);
         }
 
         public void Save(EstadoCivil entity)
