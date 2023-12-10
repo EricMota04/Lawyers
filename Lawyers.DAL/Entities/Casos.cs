@@ -6,7 +6,7 @@ namespace Lawyers.DAL.Entities
     public class Casos
     {
         public int Id { get; set; }
-        public DateOnly FechaCaso { get; set; }
+        public DateTime FechaCaso { get; set; }
         public int? IdAbogado { get; set; }
         public int? IdCliente { get; set; }
         public int? IdEstadoCaso { get; set; }

@@ -13,12 +13,48 @@ namespace Lawyers.BLL.Validations
         public static ServiceResult IsValidCaso(DtoCasosBase dtoCaso, ICasosRepository casosRepository)
         {
             ServiceResult result = new ServiceResult();
-            DateOnly fechaActual = DateOnly.FromDateTime(DateTime.Now);
-            DateOnly fechaLimite = new DateOnly(2000, 1, 1);
+            DateTime fechaActual = DateTime.Now;
+            DateTime fechaLimite = new DateTime(2000, 1, 1);
             if(string.IsNullOrEmpty(dtoCaso.Descripcion))
             {
                 result.Success = false;
                 result.Message = "La descripcion del caso es requerida";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.IdEstadoCaso.ToString()))
+            {
+                result.Success = false;
+                result.Message = "El estado del caso es requerido";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.IdTipoCaso.ToString()))
+            {
+                result.Success = false;
+                result.Message = "El tipo de caso es requerido";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.IdAbogado.ToString()))
+            {
+                result.Success = false;
+                result.Message = "El abogado es requerido";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.IdCliente.ToString()))
+            {
+                result.Success = false;
+                result.Message = "El cliente es requerido";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.Latitud))
+            {
+                result.Success = false;
+                result.Message = "La latitud es requerida";
+                return result;
+            }
+            if(string.IsNullOrEmpty(dtoCaso.Longitud))
+            {
+                result.Success = false;
+                result.Message = "La longitud es requerida";
                 return result;
             }
             if(string.IsNullOrEmpty(dtoCaso.Descripcion))

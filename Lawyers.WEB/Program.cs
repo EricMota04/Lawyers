@@ -6,16 +6,16 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-string conString = builder.Configuration.GetConnectionString("LawyersContext");
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-builder.Services.AddDbContext<LawyersContext>(options => options.UseSqlServer(conString));
+string? conString = builder.Configuration.GetConnectionString("LawyersContext");
+builder.Services.AddDbContext<LawyersContext>(options => options.UseSqlServer(conString!));
+
+// Agregar el servicio de sesión
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -23,7 +23,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -31,11 +30,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();  // Agregar el middleware de sesión aquí
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();

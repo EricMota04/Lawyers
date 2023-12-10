@@ -44,6 +44,11 @@ namespace Lawyers.BLL.Validations
                 result.Message = "El celular es requerido";
                 return result;
             }
+            if(clientesRepository.GetEntities().Any(x => x.Cedula ==dtoClienteBase.Cedula)) {
+                result.Success = false;
+                result.Message = "El cliente ya existe";
+                return result;
+            }
             if (clientesRepository.GetEntities().Any(x => x.correo == dtoClienteBase.correo))
             {
                 result.Success = false;

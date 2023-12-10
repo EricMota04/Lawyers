@@ -6,8 +6,11 @@ namespace Lawyers.DAL.Entities
     public class Usuarios
     {
         public int Id { get; set; }
+        [Column("UserName")]
         public string? Usuario { get; set; }
+        [Column("UserPassword")]
         public string? Contrasena { get; set; }
+        [Column("Rol")]
         public int RolId { get; set; }
     }
 }
