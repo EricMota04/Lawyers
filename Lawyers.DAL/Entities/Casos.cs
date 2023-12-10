@@ -23,5 +23,6 @@ namespace Lawyers.DAL.Entities
         public string? Longitud { get; set; }
         [Column("Descripcion")]
         public string? Descripcion { get; set; }
+
     }
 }

@@ -2,6 +2,7 @@
 {
     public class Casos
     {
+
         public int? Id { get; set; }
         public int? IdCliente { get; set; }
         public int? IdAbogado { get; set; }
