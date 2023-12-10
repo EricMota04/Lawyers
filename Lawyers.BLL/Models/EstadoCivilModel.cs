@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Lawyers.DAL.Entities
+namespace Lawyers.BLL.Models
 {
     [Table("EstadoCivil", Schema = "dbo")]
     public class EstadoCivilModel

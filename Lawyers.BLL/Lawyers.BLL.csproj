@@ -7,8 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Validations\" />
-    <Folder Include="Services\" />
+    <ProjectReference Include="..\Lawyers.DAL\Lawyers.DAL.csproj" />
   </ItemGroup>
 
 </Project>
