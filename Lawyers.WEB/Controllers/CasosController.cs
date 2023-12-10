@@ -15,14 +15,14 @@ namespace Lawyers.WEB.Controllers
         {
             var Casos = (List<Lawyers.BLL.Models.CasosModel>)_casosService.GetAll().Data;
 
-            var CasosViewModel = Casos.Select(x => new Models.Casos
+            var CasosViewModel = Casos.Select(x => new Lawyers.DAL.Entities.Casos
             {
                 IdCliente = x.IdCliente,
                 IdAbogado = x.IdAbogado,
                 Descripcion = x.Descripcion,
-                IdEstado = x.IdEstadoCaso,
-                Fecha = x.FechaCaso,
-                TipoDeCaso = x.IdTipoCaso,
+                IdEstadoCaso = x.IdEstadoCaso,
+                FechaCaso = x.FechaCaso,
+                IdTipoCaso = x.IdTipoCaso,
                 Latitud = x.Latitud,
                 Longitud = x.Longitud
             }).ToList();

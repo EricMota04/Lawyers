@@ -1,4 +1,8 @@
 using Data.DAL.Context;
+using Lawyers.BLL.Contracts;
+using Lawyers.BLL.Services;
+using Lawyers.DAL.Interfaces;
+using Lawyers.DAL.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +20,29 @@ builder.Services.AddDbContext<LawyersContext>(options => options.UseSqlServer(co
 
 // Agregar el servicio de sesión
 builder.Services.AddSession();
+
+//Agregar servicios
+builder.Services.AddScoped<ICasosRepository, CasosRepository>();
+builder.Services.AddScoped<IClientesRepository, ClientesRepository>();
+builder.Services.AddScoped<IEstadoCivilRepository, EstadoCivilRepository>();
+builder.Services.AddScoped<IEstadosCasosRepository, EstadosCasosRepository>();
+builder.Services.AddScoped<IRolesRepository, RolesRepository>();
+builder.Services.AddScoped<ITiposDeCasosRepository, TiposDeCasosRepository>();
+builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+builder.Services.AddScoped<IAbogadosRepository, AbogadosRepository>();
+
+builder.Services.AddTransient<ICasosService, CasosService>();
+builder.Services.AddTransient<IClienteService, ClientesService>();
+builder.Services.AddTransient<IEstadoCivilService, EstadoCivilService>();
+builder.Services.AddTransient<IEstadosCasosService, EstadosCasosService>();
+builder.Services.AddTransient<IRolesService, RolesService>();
+builder.Services.AddTransient<ITiposDeCasosService, TiposDeCasosService>();
+builder.Services.AddTransient<IUsuariosService, UsuariosService>();
+builder.Services.AddTransient<IAbogadoService, AbogadoService>();
+builder.Services.AddTransient(typeof(ILoggerService<>), typeof(LoggerService<>));
+
+
+
 
 var app = builder.Build();
 

@@ -10,14 +10,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Lawyers.BLL.Validations;
+using Lawyers.DAL.Interfaces;
 
 namespace Lawyers.BLL.Services
 {
     public class CasosService : ICasosService
     {
-        private readonly CasosRepository _casosRepository;
+        private readonly ICasosRepository _casosRepository;
         private readonly ILoggerService<CasosService> _loggerService;
-        public CasosService(CasosRepository casosRepository, ILoggerService<CasosService> loggerService)
+        public CasosService(ICasosRepository casosRepository, ILoggerService<CasosService> loggerService)
         {
             _casosRepository = casosRepository;
             _loggerService = loggerService;

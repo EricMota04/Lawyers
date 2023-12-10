@@ -35,7 +35,7 @@ namespace Lawyers.WEB.Controllers
                 session.SetString("Usuario", userJson);
                 HttpContext.Session.SetString("UserId", user.Id.ToString());
                 HttpContext.Session.SetString("UserName", user.Usuario);
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Casos");
                 
             }
 
