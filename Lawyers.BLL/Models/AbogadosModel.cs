@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Lawyers.DAL.Entities
+namespace Lawyers.BLL.Models
 {
     [Table("Abogados", Schema ="dbo")]
-    public class Abogados : Core.Persona
+    public class AbogadosModel : Core.Persona
     {
         public string? correo { get; set; }
         public string? Telefono { get; set; }
