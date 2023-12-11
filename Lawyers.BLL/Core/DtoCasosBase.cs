@@ -17,5 +17,9 @@ namespace Lawyers.BLL.Core
         public string? Latitud { get; set; }
         public string? Longitud { get; set; }
         public string? Descripcion { get; set; }
+        public string? NombreCliente { get; set; }
+        public string? NombreAbogado { get; set; }
+        public string? EstadoCaso { get; set; }
+        public string? TipoCaso { get; set; }
     }
 }

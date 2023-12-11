@@ -1,7 +1,7 @@
-﻿@model IEnumerable<Lawyers.DAL.Entities.Casos>
+﻿@model IEnumerable<Lawyers.BLL.Core.DtoCasosBase>
 
 @{
-    Layout = null;
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -42,6 +42,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Descripcion)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreAbogado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCaso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoCaso)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -71,6 +83,18 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCaso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoCaso)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
