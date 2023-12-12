@@ -49,6 +49,9 @@ namespace Lawyers.DAL.Repositories
                 ClienteModificar.correo = entity.correo;
                 ClienteModificar.Direccion = entity.Direccion;
                 ClienteModificar.IdEstadoCivil = entity.IdEstadoCivil;
+
+                _context.Update(ClienteModificar);
+                _context.SaveChanges();
                 
             }
             catch (Exception ex)

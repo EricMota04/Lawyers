@@ -19,6 +19,27 @@ namespace Data.DAL.Context
         public DbSet<TiposDeCasos> TiposDeCasos { get; set; }
         
         public DbSet<Usuarios> USUARIOS { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Casos>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd(); // This configures the property to be generated on add
+
+            modelBuilder.Entity<Abogados>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd(); 
+
+            modelBuilder.Entity<Clientes>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            modelBuilder.Entity<Usuarios>()
+                .Property(e => e.Id)
+                .ValueGeneratedOnAdd();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
     }
 

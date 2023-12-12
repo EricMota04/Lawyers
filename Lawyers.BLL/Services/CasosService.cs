@@ -56,7 +56,6 @@ namespace Lawyers.BLL.Services
         public ServiceResult GetById(int Id)
         {
             ServiceResult result = new ServiceResult();
-
             try
             {
                 DAL.Entities.Casos casos = _casosRepository.GetEntity(Id);
@@ -70,7 +69,7 @@ namespace Lawyers.BLL.Services
                     Longitud = casos.Longitud,
                     IdAbogado = casos.IdAbogado,
                     Descripcion = casos.Descripcion,
-                    IdEstadoCaso = casos.IdEstadoCaso,
+                    IdEstadoCaso = casos.IdEstadoCaso
                 };
                 result.Data = casosModel;
             }
@@ -103,6 +102,7 @@ namespace Lawyers.BLL.Services
                         IdEstadoCaso = casosSaveDto.IdEstadoCaso,
                     };
                     _casosRepository.Save(casos);
+                    
                 }
                 else{
                     result.Success = false;
@@ -122,12 +122,11 @@ namespace Lawyers.BLL.Services
         public CasosUpdateResponse Update(CasosUpdateDto casosUpdateDto)
         {
             CasosUpdateResponse result = new CasosUpdateResponse();
-            var validCaso = CasosValidations.IsValidCaso(casosUpdateDto, _casosRepository);
+            //var validCaso = CasosValidations.IsValidCaso(casosUpdateDto, _casosRepository);
 
             try
             {
-                if (validCaso.Success)
-                {
+                
                     DAL.Entities.Casos casos = new DAL.Entities.Casos
                     {
                         Id = casosUpdateDto.Id,
@@ -141,13 +140,7 @@ namespace Lawyers.BLL.Services
                         IdEstadoCaso = casosUpdateDto.IdEstadoCaso,
                     };
                     _casosRepository.Update(casos);
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Message = validCaso.Message;
-                    return result;
-                }
+            
             }
             catch (System.Exception ex)
             {

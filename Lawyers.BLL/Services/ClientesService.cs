@@ -31,14 +31,18 @@ namespace Lawyers.BLL.Services
             try
             {
                 var query = (from clientes in this._clientesRepository.GetEntities()
-                             select new 
+                             select new ClientesModel
                              {
                                  Id = clientes.Id,
                                  Nombre = clientes.Nombre,
                                  Apellido = clientes.Apellido,
                                  correo = clientes.correo,
                                  Telefono = clientes.Telefono,
-                                 celular = clientes.celular
+                                 celular = clientes.celular,
+                                 IdEstadoCivil = clientes.IdEstadoCivil,
+                                 Cedula = clientes.Cedula,
+                                 Direccion = clientes.Direccion
+                                 
 
                              }).ToList();
                 result.Data = query;
@@ -65,7 +69,11 @@ namespace Lawyers.BLL.Services
                     Apellido = clientes.Apellido,
                     correo = clientes.correo,
                     Telefono = clientes.Telefono,
-                    celular = clientes.celular
+                    celular = clientes.celular,
+                    IdEstadoCivil = clientes.IdEstadoCivil,
+                    Cedula = clientes.Cedula,
+                    Direccion = clientes.Direccion
+
                 };
                 result.Data = clientesModel;
             }
@@ -93,7 +101,10 @@ namespace Lawyers.BLL.Services
                         Apellido = clientesSaveDto.Apellido,
                         correo = clientesSaveDto.correo,
                         Telefono = clientesSaveDto.Telefono,
-                        celular = clientesSaveDto.celular
+                        celular = clientesSaveDto.celular,
+                        IdEstadoCivil = clientesSaveDto.IdEstadoCivil,
+                        Cedula = clientesSaveDto.Cedula,
+                        Direccion = clientesSaveDto.Direccion
                     };
                     _clientesRepository.Save(clienteAdd);
                 }
@@ -116,25 +127,23 @@ namespace Lawyers.BLL.Services
         public ClientesUpdateResponse Update(ClientesUpdateDto clientesUpdateDto)
         {
             ClientesUpdateResponse result = new ClientesUpdateResponse();
-            var ValidClient = ClientesValidations.IsValidCliente(clientesUpdateDto, _clientesRepository);
 
             try
             {
-                if (ValidClient.Success)
-                {
+                
                     DAL.Entities.Clientes clienteUpdate = _clientesRepository.GetEntity(clientesUpdateDto.Id);
+                    clienteUpdate.Id = clientesUpdateDto.Id;
                     clienteUpdate.Nombre = clientesUpdateDto.Nombre;
                     clienteUpdate.Apellido = clientesUpdateDto.Apellido;
                     clienteUpdate.correo = clientesUpdateDto.correo;
                     clienteUpdate.Telefono = clientesUpdateDto.Telefono;
                     clienteUpdate.celular = clientesUpdateDto.celular;
+                clienteUpdate.IdEstadoCivil = clientesUpdateDto.IdEstadoCivil;
+                clienteUpdate.Direccion = clientesUpdateDto.Direccion;
+                clienteUpdate.Cedula = clientesUpdateDto.Cedula;
                     _clientesRepository.Update(clienteUpdate);
-                }
-                else
-                {
-                    result.Success = false;
-                    result.Message = ValidClient.Message;
-                }
+                
+                 
             }
             catch (System.Exception ex)
             {
