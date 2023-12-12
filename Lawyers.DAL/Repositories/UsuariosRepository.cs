@@ -47,6 +47,7 @@ namespace Lawyers.DAL.Repositories
                 usuarioModificar.RolId = entity.RolId;
 
                 _context.USUARIOS.Update(usuarioModificar);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

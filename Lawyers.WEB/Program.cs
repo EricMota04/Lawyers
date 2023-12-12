@@ -3,6 +3,7 @@ using Lawyers.BLL.Contracts;
 using Lawyers.BLL.Services;
 using Lawyers.DAL.Interfaces;
 using Lawyers.DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ builder.Services.AddScoped<IRolesRepository, RolesRepository>();
 builder.Services.AddScoped<ITiposDeCasosRepository, TiposDeCasosRepository>();
 builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
 builder.Services.AddScoped<IAbogadosRepository, AbogadosRepository>();
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddTransient<ICasosService, CasosService>();
 builder.Services.AddTransient<IClienteService, ClientesService>();
@@ -40,6 +42,8 @@ builder.Services.AddTransient<ITiposDeCasosService, TiposDeCasosService>();
 builder.Services.AddTransient<IUsuariosService, UsuariosService>();
 builder.Services.AddTransient<IAbogadoService, AbogadoService>();
 builder.Services.AddTransient(typeof(ILoggerService<>), typeof(LoggerService<>));
+
+
 
 
 
@@ -57,7 +61,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseSession();  // Agregar el middleware de sesión aquí
+app.UseSession();  
 
 app.UseAuthorization();
 

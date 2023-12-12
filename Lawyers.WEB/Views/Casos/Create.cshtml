@@ -1,0 +1,74 @@
+﻿@model Lawyers.DAL.Entities.Casos
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+</head>
+<body>
+
+    <h4>Casos</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label  class="control-label">Fecha del caso</label>
+                    <input asp-for="FechaCaso" class="form-control" required min="2000-01-01" max="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" />
+                    <span asp-validation-for="FechaCaso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label">Abogado encargado</label>
+                    <select asp-for="IdAbogado" asp-items="@(new SelectList(ViewBag.Abogados, "Id", "Nombre"))" class="form-control" required></select>
+                    <span asp-validation-for="IdAbogado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Cliente</label>
+                    <select asp-for="IdCliente" asp-items="@(new SelectList(ViewBag.Clientes, "Id", "Nombre"))" class="form-control" required></select>
+                    <span asp-validation-for="IdCliente" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Estado del caso</label>
+                    <select asp-for="IdEstadoCaso" asp-items="@(new SelectList(ViewBag.EstadosCasos, "Id", "Estado"))" class="form-control" required></select>
+                    <span asp-validation-for="IdEstadoCaso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label  class="control-label">Tipo de caso</label>
+                     <select asp-for="IdTipoCaso" asp-items="@(new SelectList(ViewBag.TiposCasos, "Id", "TipoDeCaso"))" class="form-control"required></select> 
+                    <span asp-validation-for="IdTipoCaso" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Latitud" class="control-label"></label>
+                    <input asp-for="Latitud" class="form-control" required/>
+                    <span asp-validation-for="Latitud" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Longitud" class="control-label"></label>
+                    <input asp-for="Longitud" class="form-control" required/>
+                    <span asp-validation-for="Longitud" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Descripcion" class="control-label"></label>
+                    <input asp-for="Descripcion" class="form-control" required/>
+                    <span asp-validation-for="Descripcion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Crear" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Volver a la lista</a>
+    </div>
+
+</body>
+</html>

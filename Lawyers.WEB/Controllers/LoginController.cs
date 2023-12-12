@@ -1,5 +1,7 @@
 ﻿using Data.DAL.Context;
 using Lawyers.DAL.Entities;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
@@ -36,10 +38,11 @@ namespace Lawyers.WEB.Controllers
                 HttpContext.Session.SetString("UserId", user.Id.ToString());
                 HttpContext.Session.SetString("UserName", user.Usuario);
                 return RedirectToAction("Index", "Casos");
-                
             }
 
             return View(usuarioBuscar);
         }
+
+       
     }
 }
