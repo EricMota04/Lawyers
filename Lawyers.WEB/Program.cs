@@ -1,4 +1,9 @@
 using Data.DAL.Context;
+using Lawyers.BLL.Contracts;
+using Lawyers.BLL.Services;
+using Lawyers.DAL.Interfaces;
+using Lawyers.DAL.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -6,16 +11,42 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
-string conString = builder.Configuration.GetConnectionString("LawyersContext");
-#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
-builder.Services.AddDbContext<LawyersContext>(options => options.UseSqlServer(conString));
+string? conString = builder.Configuration.GetConnectionString("LawyersContext");
+builder.Services.AddDbContext<LawyersContext>(options => options.UseSqlServer(conString!));
+
+// Agregar el servicio de sesión
+builder.Services.AddSession();
+
+//Agregar servicios
+builder.Services.AddScoped<ICasosRepository, CasosRepository>();
+builder.Services.AddScoped<IClientesRepository, ClientesRepository>();
+builder.Services.AddScoped<IEstadoCivilRepository, EstadoCivilRepository>();
+builder.Services.AddScoped<IEstadosCasosRepository, EstadosCasosRepository>();
+builder.Services.AddScoped<IRolesRepository, RolesRepository>();
+builder.Services.AddScoped<ITiposDeCasosRepository, TiposDeCasosRepository>();
+builder.Services.AddScoped<IUsuariosRepository, UsuariosRepository>();
+builder.Services.AddScoped<IAbogadosRepository, AbogadosRepository>();
+builder.Services.AddHttpContextAccessor();
+
+builder.Services.AddTransient<ICasosService, CasosService>();
+builder.Services.AddTransient<IClienteService, ClientesService>();
+builder.Services.AddTransient<IEstadoCivilService, EstadoCivilService>();
+builder.Services.AddTransient<IEstadosCasosService, EstadosCasosService>();
+builder.Services.AddTransient<IRolesService, RolesService>();
+builder.Services.AddTransient<ITiposDeCasosService, TiposDeCasosService>();
+builder.Services.AddTransient<IUsuariosService, UsuariosService>();
+builder.Services.AddTransient<IAbogadoService, AbogadoService>();
+builder.Services.AddTransient(typeof(ILoggerService<>), typeof(LoggerService<>));
+
+
+
+
+
 
 var app = builder.Build();
 
@@ -23,7 +54,6 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -31,11 +61,12 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+app.UseSession();  
 
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Login}/{action=Login}/{id?}");
 
 app.Run();

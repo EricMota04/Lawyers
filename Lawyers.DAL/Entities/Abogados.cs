@@ -8,6 +8,7 @@ namespace Lawyers.DAL.Entities
         public string? correo { get; set; }
         public string? Telefono { get; set; }
         public string? celular { get; set; }
+        public int? IdUsuario { get; set; }
 
     }
 }

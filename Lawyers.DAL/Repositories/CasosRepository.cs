@@ -42,6 +42,7 @@ namespace Lawyers.DAL.Repositories
             {
                 Casos CasoModificar = GetEntity(entity.Id);
 
+                CasoModificar.Id = entity.Id;
                 CasoModificar.FechaCaso = entity.FechaCaso;
                 CasoModificar.IdAbogado = entity.IdAbogado;
                 CasoModificar.IdCliente = entity.IdCliente;
@@ -50,6 +51,8 @@ namespace Lawyers.DAL.Repositories
                 CasoModificar.Latitud = entity.Latitud;
                 CasoModificar.Longitud = entity.Longitud;
                 CasoModificar.Descripcion = entity.Descripcion;
+                _context.Update(CasoModificar);
+                _context.SaveChanges();
             }
             catch (Exception ex)
             {

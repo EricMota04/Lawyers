@@ -1,0 +1,105 @@
+﻿@model IEnumerable<Lawyers.BLL.Dtos.DtosCasos.CasoIntermediarioDto>
+
+@{
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Crear nuevo caso</a>
+    </p>
+
+    <div style="float: right; margin-right: 10px;">
+        @using (Html.BeginForm("Index", "Casos", FormMethod.Get))
+        {
+            <div class="form-group">
+                <div style="display: inline-block; margin-right: 10px;">
+                    <label for="tipoCasoId">Tipo de Caso:</label>
+                    @Html.DropDownList("tipoCasoId", ViewBag.TiposCasos as SelectList, "Todos", new { @class = "form-control-sm" })
+                </div>
+                <div style="display: inline-block; margin-right: 10px;">
+                    <label for="abogadoId">Abogado:</label>
+                    @Html.DropDownList("abogadoId", ViewBag.Abogados as SelectList, "Todos", new { @class = "form-control-sm" })
+                </div>
+                <div style="display: inline-block;">
+                    <label for="estadoCasoId">Estado de Caso:</label>
+                    @Html.DropDownList("estadoCasoId", ViewBag.EstadosCasos as SelectList, "Todos", new { @class = "form-control-sm" })
+                </div>
+                <input type="submit" value="Filtrar" class="btn btn-primary btn-sm" />
+            </div>
+        }
+    </div>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCaso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Latitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Longitud)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreCliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NombreAbogado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EstadoCaso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoCaso)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCaso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Latitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Longitud)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreCliente)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreAbogado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EstadoCaso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoCaso)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-danger">Editar caso</a> |
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary" style="margin: 3px">Detalles</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
